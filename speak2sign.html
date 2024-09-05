@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Speak2Sign</title>
+    <link rel="icon" type="image/png" sizes="48x48" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Scroll animation for the testimonials carousel */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-scroll {
+            display: flex;
+            animation: scroll 20s linear infinite;
+        }
+
+        .scroll-up-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #D81B60;
+            /* Replace with your desired pink color */
+            border-radius: 50%;
+            width: 56px;
+            /* Adjust size as needed */
+            height: 56px;
+            /* Adjust size as needed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-up-btn a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .scroll-up-btn img {
+            width: 24px;
+            /* Adjust size as needed */
+            height: 24px;
+            /* Adjust size as needed */
+        }
+
+        .learn-more-button {
+            display: inline-block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .learn-more-button:hover {
+            transform: rotate(-5deg);
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
+            /* Pink glow */
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) rotateZ(-1deg);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card img {
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover img {
+            transform: rotate(-5deg) scale(1.05);
+        }
+    </style>
+</head>
+
+<body class="bg-yellow-50">
+    <!-- Navigation bar -->
+    <nav class="navigation sticky top-0 z-10 bg-yellow-50 shadow-md">
+        <div class="flex flex-col lg:flex-row lg:justify-around items-center p-2 space-y-2 lg:space-y-0">
+            <!-- Logo and name -->
+            <div
+                class="speeak2sign text-pink-700 text-2xl font-extrabold flex flex-row items-center space-x-4 mb-4 lg:mb-0">
+                <img src="images/logo.png" alt="Speak2Sign" class="w-16 h-16">
+                <h1>Speak2Sign</h1>
+            </div>
+
+            <!-- Navigation bar list items -->
+            <div class="nav-items text-pink-700 flex flex-row items-center space-x-4 lg:space-x-7">
+                <a href="#home" class="list-items font-bold hover:underline">Home</a>
+                <a href="#about" class="list-items font-bold hover:underline">About</a>
+                <a href="#features" class="list-items font-bold hover:underline">Features</a>
+                <a href="#services" class="list-items font-bold hover:underline">Services</a>
+            </div>
+
+            <!-- Navigation bar buttons -->
+            <div class="buttons flex space-x-5">
+                <a href="Testing/login.html" target="_blank"
+                    class="inline-block px-4 py-2 bg-white border border-black text-pink-600 font-bold text-xl rounded-lg hover:bg-pink-100 transition-colors learn-more-button">
+                    Login
+                </a>
+                <!-- <a href="#" target="_blank" id="signaura-button"
+                    class="inline-block px-4 py-2 bg-white border border-black text-pink-600 font-bold text-xl rounded-lg hover:bg-pink-100 transition-colors learn-more-button">
+                    Signaura
+                </a> -->
+            </div>
+        </div>
+    </nav>
+
+
+    <section class="home-section h-screen w-screen p-6 pt-24 flex justify-center items-center z-0 " id="home">
+        <div class="container flex flex-col-reverse md:flex-row justify-around items-center  ">
+            <div class="headings flex flex-col space-y-7 justify-center ">
+                <div
+                    class="head text-4xl md:text-6xl font-bold flex justify-self-center  border border-black rounded-tl-full rounded-br-full w-full md:w-11/12 lg:w-10/12 text-center p-5 md:ml-4 text-pink-700">
+                    "Discover a World of Gestures"
+                </div>
+
+
+                <div class="para mt-4 text-lg text-center font-semibold text-gray-700 ">
+                    ~Embark on a journey of communication through the art of gestures.
+                </div>
+                <div class="buttons space-x-10 flex justify-center mt-6 text-center md:text-left">
+                    <a href="Testing/signup.html" target="_blank"
+                        class="inline-block px-4 py-2 bg-white border border-black text-pink-600 font-bold text-xl rounded-lg hover:bg-pink-100 transition-colors learn-more-button">
+                        Join Us
+                    </a>
+                    <a href="#" target="_blank"
+                        class="inline-block px-4 py-2 bg-white border border-black text-pink-600 font-bold text-xl rounded-lg hover:bg-pink-100 transition-colors learn-more-button">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+            <div class="image">
+                <img src="images/PhoneUI.png" alt="Phone UI" class="phoneUI w-72 h-fit p-3">
+            </div>
+        </div>
+    </section>
+
+    <!-- About us section -->
+
+    <section class="about  z-0 flex flex-col items-center m-5" id="about">
+        <div class="heading text-6xl font-bold text-center mb-8 text-pink-700">
+            About Us
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row justify-center items-center w-full max-w-screen-lg px-4">
+            <!-- Image Section -->
+            <div class="aboutImage mb-4 md:mb-0 md:mr-8 lg:mr-12">
+                <img src="images/aboutImage.png" alt="About Image" class="w-full md:w-80 lg:w-96">
+            </div>
+            <!-- Paragraph Section -->
+            <div class="para p-4 flex flex-col justify-center items-start md:w-1/2 lg:w-1/2">
+                This software is designed to empower Deaf individuals by translating audio and visual content into sign
+                language, facilitating their learning of sign language, and bridging the communication gap between Deaf
+                and hearing communities. This platform aims to promote inclusivity and socialization, enabling seamless
+                interactions in various social settings.
+                <a href="#" target="_blank"
+                    class="inline-block px-4 py-2 bg-white border border-black text-pink-600 font-bold text-xl rounded-lg hover:bg-pink-100 transition-colors learn-more-button">
+                    Learn More
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Features section -->
+
+    <section class="features-section  w-screen" id="features">
+        <div class="features border border-pink-600 p-3 mx-3 rounded-md">
+            <div class="Features-heading ">
+                <h1 class="text-4xl text-pink-700 font-bold text-center">Check out all the features</h1>
+            </div>
+            <div class="flex justify-center items-center">
+                <img src="images/featuresImg.png" alt=""
+                    class="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
+            </div>
+
+
+
+            <!-- features -->
+            <div class="flex flex-col space-y-7 lg:flex-row lg:space-x-7 p-4 justify-center align-middle">
+                <div></div>
+
+                <!-- First card -->
+                <div
+                    class="card bg-white flex flex-col items-center space-y-4 w-full lg:w-96 p-4 border rounded-lg shadow-lg">
+                    <div class="flex justify-center items-center w-full mb-4">
+                        <img src="images/user.png" alt="User Friendly" class="h-40 w-40 object-cover">
+                    </div>
+                    <h1 class="font-bold text-pink-700 text-center text-xl">User Friendly</h1>
+                    <p class="text-left text-sm h-48">
+                        The website is user-friendly with an intuitive interface, easy navigation, and clear
+                        instructions. It supports English and Hindi, offers voice and text commands, and features an AI
+                        chatbot for real-time help. Visual aids and tutorials make learning ISL and using the app
+                        straightforward and accessible to all users.
+                    </p>
+                    <a href="#" target="_blank"
+                        class="inline-block px-4 py-2 bg-pink-700 text-white rounded-lg hover:bg-pink-500 transition-colors learn-more-button">
+                        Learn More
+                    </a>
+                </div>
+
+
+                <!-- second card -->
+                <div
+                    class="card bg-white flex flex-col items-center space-y-4 w-full lg:w-96 p-4 border rounded-lg shadow-lg">
+                    <div class="flex justify-center items-center w-full mb-4">
+                        <img src="images/language.png" alt="User Friendly" class="h-40 w-40 object-cover">
+                    </div>
+                    <h1 class="font-bold text-pink-700 text-center text-xl">Native Language Available</h1>
+                    <p class="text-left text-sm h-48">
+                        The app's unique feature is its native language support, making it more accessible and setting
+                        it apart from others.
+                        The app or website is pioneering by being the first to use visuals to translate content into
+                        sign language, enhancing accessibility and communication.
+                    </p>
+                    <a href="#" target="_blank"
+                        class="inline-block px-4 py-2 bg-pink-700  text-white  rounded-lg hover:bg-pink-500 transition-colors learn-more-button">
+                        Learn More
+                    </a>
+                </div>
+
+                <!-- third card -->
+
+                <div
+                    class="card bg-white flex flex-col items-center space-y-4 w-full lg:w-96 p-4 border rounded-lg shadow-lg">
+                    <div class="flex justify-center items-center w-full mb-4">
+                        <img src="images/aibot.png" alt="User Friendly" class="h-40 w-40 object-cover">
+                    </div>
+                    <h1 class="font-bold text-pink-700 text-center text-xl">AI Bot</h1>
+                    <p class="text-left text-sm h-48">
+                        The AI chatbot teaches the basics of Indian Sign Language (ISL) and helps users navigate an app
+                        that converts English/Hindi audio-visual content into ISL. It offers tutorials, real-time help,
+                        and feedback on ISL practice.
+                    </p>
+                    <a href="#" target="_blank"
+                        class="inline-block px-4 py-2 bg-pink-700  text-white  rounded-lg hover:bg-pink-500 transition-colors learn-more-button">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Services section -->
+
+    <section class="services-section h-auto w-screen pt-8 pb-8" id="services">
+        <div class="services p-3 mx-3 rounded-md">
+            <div class="Services-heading mb-8">
+                <h1 class="text-4xl text-pink-700 font-bold text-center">Our <span
+                        class="text-4xl font-bold text-pink-700">Services</span></h1>
+            </div>
+
+            <!-- Services -->
+            <div class="flex flex-col space-y-7 lg:flex-row lg:space-x-7 p-4 justify-center align-middle">
+                <div></div>
+                <div
+                    class="card bg-pink-400 flex flex-col items-center space-y-4 w-full lg:w-96 p-4 border rounded-lg shadow-lg">
+
+                    <div class="flex justify-center items-center bg-white rounded-full p-2">
+                        <div class="flex justify-center items-center bg-pink-200 rounded-full p-1">
+                            <img src="images/Counselor.png" alt="Guidance Counselor"
+                                class="h-14 w-12 object-cover rounded-full">
+                        </div>
+                    </div>
+
+                    <h1 class="font-bold  text-center text-3xl text-white">Guidance Counselor</h1>
+                    <p class="text-left text-md h-48 overflow-auto text-white">
+                        Our guidance counselor service provides personalized support and advice for the Deaf community,
+                        helping individuals navigate educational, career, and personal challenges. Whether you're
+                        seeking academic guidance or emotional support, our counselors are here to assist with empathy
+                        and expertise.
+                    </p>
+                    <a href="Dictionary/ISL_200word_v15.pdf" target="_blank"
+                        class="mt-4 inline-block px-4 py-2 bg-white text-pink-600 font-bold text-xl rounded-lg hover:bg-pink-100 transition-colors">
+                        Learn more
+                    </a>
+                </div>
+                <div class="flex flex-col space-y-3">
+                    <div class="flex justify-center items-center">
+                        <img src="images/services-section.png" alt="Service Image" class="w-32 h-32">
+                    </div>
+                    <div
+                        class="card bg-pink-500 flex flex-col items-center space-y-4 w-full lg:w-96 p-4 border rounded-lg shadow-lg">
+                        <div class="flex justify-center items-center bg-white rounded-full p-2">
+                            <div class="flex justify-center items-center bg-pink-200 rounded-full p-1">
+                                <img src="images/Classroom.png" alt="Guidance Counselor"
+                                    class="h-14 w-12 object-cover rounded-full">
+                            </div>
+                        </div>
+                        <h1 class="font-bold text-center text-3xl text-white">Tutorials for Deaf</h1>
+                        <p class="text-left text-md h-48 overflow-auto text-white">
+                            This section offers a comprehensive tutorial designed specifically for the Deaf community,
+                            covering essential topics and skills. Whether you're learning sign language, preparing for
+                            exams, or acquiring new skills, our tutorials are tailored to meet your needs, making
+                            learning
+                            accessible and engaging.
+                        </p>
+                        <a href="https://youtube.com/playlist?list=PLxYMaKXKMMcMgg4f47WkG7AM0bb3AyjTi&si=NrXokyQyzb2fy9bK"
+                            target="_blank"
+                            class="mt-4 inline-block px-4 py-2 bg-white text-pink-600 font-bold text-xl rounded-lg hover:bg-pink-100 transition-colors">
+                            Learn more
+                        </a>
+                    </div>
+                </div>
+                <div
+                    class="card bg-pink-400 flex flex-col items-center space-y-4 w-full lg:w-96 p-4 border rounded-lg shadow-lg">
+                    <div class="flex justify-center items-center bg-white rounded-full p-2">
+                        <div class="flex justify-center items-center bg-pink-200 rounded-full p-1">
+                            <img src="images/Root Server.png" alt="Guidance Counselor"
+                                class="h-14 w-12 object-cover rounded-full">
+                        </div>
+                    </div>
+                    <h1 class="font-bold text-white text-center text-3xl">SL Hub</h1>
+                    <p class="text-left text-md h-48 overflow-auto text-white">
+                        The ISL (Indian Sign Language) Dictionary is a valuable resource for anyone looking to learn or
+                        improve their sign language skills. Featuring a wide range of signs with clear visual
+                        demonstrations, this dictionary is an essential tool for both beginners and advanced learners,
+                        helping to bridge communication gaps effectively.
+                    </p>
+                    <a href="Dictionary/ISL_200word_v15.pdf" target="_blank"
+                        class="mt-4 inline-block px-4 py-2 bg-white text-pink-600 font-bold text-xl rounded-lg hover:bg-pink-100 transition-colors">
+                        Learn more
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="testimonials p-6">
+        <div class="container mx-auto">
+            <!-- Heading -->
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-pink-700">What Our Users Say</h2>
+            </div>
+
+            <!-- Testimonials Carousel -->
+            <div class="relative overflow-hidden">
+                <div class="flex space-x-4 animate-scroll">
+                    <!-- Duplicate the testimonials for seamless scrolling -->
+                    <div
+                        class="testimonial bg-pink-100 p-6 rounded-lg shadow-md flex flex-col items-center min-w-[300px]">
+                        <img src="images/profile.png" alt="User 1" class="h-16 w-16 rounded-full mb-4">
+                        <p class="text-gray-700 text-center mb-4">
+                            "This platform has transformed the way I communicate. The sign language tutorials are
+                            incredibly helpful and the support team is always there when needed."
+                        </p>
+                        <h3 class="font-semibold text-gray-900">Jane Doe</h3>
+                        <p class="text-gray-600">Deaf Community Member</p>
+                    </div>
+
+                    <div
+                        class="testimonial bg-pink-100  p-6 rounded-lg shadow-md flex flex-col items-center min-w-[300px]">
+                        <img src="images/profile.png" alt="User 2" class="h-16 w-16 rounded-full mb-4">
+                        <p class="text-gray-700 text-center mb-4">
+                            "An amazing resource for learning sign language. The tutorials are easy to follow and very
+                            informative. Highly recommended!"
+                        </p>
+                        <h3 class="font-semibold text-gray-900">John Smith</h3>
+                        <p class="text-gray-600">Educator</p>
+                    </div>
+
+                    <div
+                        class="testimonial bg-pink-100 p-6 rounded-lg shadow-md flex flex-col items-center min-w-[300px]">
+                        <img src="images/profile.png" alt="User 3" class="h-16 w-16 rounded-full mb-4">
+                        <p class="text-gray-700 text-center mb-4">
+                            "The platform is user-friendly and provides valuable insights into sign language. It's a
+                            great tool for both beginners and advanced learners."
+                        </p>
+                        <h3 class="font-semibold text-gray-900">Emily Davis</h3>
+                        <p class="text-gray-600">Communication Specialist</p>
+                    </div>
+
+                    <!-- Duplicate testimonials for seamless effect -->
+                    <div
+                        class="testimonial bg-pink-100  p-6 rounded-lg shadow-md flex flex-col items-center min-w-[300px]">
+                        <img src="images/profile.png" alt="User 1" class="h-16 w-16 rounded-full mb-4">
+                        <p class="text-gray-700 text-center mb-4">
+                            "This platform has transformed the way I communicate. The sign language tutorials are
+                            incredibly helpful and the support team is always there when needed."
+                        </p>
+                        <h3 class="font-semibold text-gray-900">Jane Doe</h3>
+                        <p class="text-gray-600">Deaf Community Member</p>
+                    </div>
+
+                    <div
+                        class="testimonial bg-pink-100  p-6 rounded-lg shadow-md flex flex-col items-center min-w-[300px]">
+                        <img src="images/profile.png" alt="User 2" class="h-16 w-16 rounded-full mb-4">
+                        <p class="text-gray-700 text-center mb-4">
+                            "An amazing resource for learning sign language. The tutorials are easy to follow and very
+                            informative. Highly recommended!"
+                        </p>
+                        <h3 class="font-semibold text-gray-900">John Smith</h3>
+                        <p class="text-gray-600">Educator</p>
+                    </div>
+
+                    <div
+                        class="testimonial bg-pink-100  p-6 rounded-lg shadow-md flex flex-col items-center min-w-[300px]">
+                        <img src="images/profile.png" alt="User 3" class="h-16 w-16 rounded-full mb-4">
+                        <p class="text-gray-700 text-center mb-4">
+                            "The platform is user-friendly and provides valuable insights into sign language. It's a
+                            great tool for both beginners and advanced learners."
+                        </p>
+                        <h3 class="font-semibold text-gray-900">Emily Davis</h3>
+                        <p class="text-gray-600">Communication Specialist</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer section -->
+
+    <footer class="footer bg-pink-500 p-6 rounded-md">
+        <div class="flex flex-col">
+
+            <!-- Heading -->
+            <div class="head font-bold text-4xl text-white mb-4">
+                Speak2Sign
+            </div>
+
+            <!-- List of Links -->
+            <div class="flex flex-col md:flex-row md:justify-between text-white">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="block mb-2">Privacy Policies</a>
+                    <a href="#" class="block">Terms and Conditions</a>
+                </div>
+                <div class="mb-4 md:mb-0">
+                    <h1 class="text-xl font-semibold mb-2">Contact Us</h1>
+                    <a href="mailto:info@speak2sign.com" class="block mb-2">Email - info@speak2sign.com</a>
+                    <a href="tel:+1234567890" class="block">Phone - +123 456 7890</a>
+                </div>
+                <div>
+                    <h1 class="text-xl font-semibold mb-2">How It Works</h1>
+                    <a href="#" class="block">Learn More</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <div class="scroll-up-btn">
+        <a href="#home">
+            <img src="images/arrow-141-32.png" alt="Scroll to Home">
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+<script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
+<script src="https://mediafiles.botpress.cloud/fdd80817-c37b-4b59-b87c-eabb182fc196/webchat/v2.1/config.js"></script>
+<script>
+    document.getElementById("signaura-button").addEventListener("click", function() {
+      // Trigger the Botpress webchat to open
+      window.botpressWebChat.sendEvent({
+        type: 'show'
+      });
+    });
+  </script>
+</html>

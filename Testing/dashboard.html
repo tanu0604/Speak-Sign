@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Language Dashboard</title>
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/logo.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAX_vA3he_0rUCdZrrjeoAM-HXCNM3G0YQ",
+      authDomain: "speak2sign-eb526.firebaseapp.com",
+      projectId: "speak2sign-eb526",
+      storageBucket: "speak2sign-eb526.appspot.com",
+      messagingSenderId: "943656408527",
+      appId: "1:943656408527:web:1afdf84a64436fd17daeba"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Get user details when the page loads
+    window.onload = function () {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // Display user details
+          document.getElementById('userEmail').textContent = user.email;
+          document.getElementById('userName').textContent = user.displayName || 'No name provided';
+        } else {
+          // Redirect to login page if not authenticated
+          window.location.href = 'login.html';
+        }
+      });
+    };
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+  const fileTypeSelect = document.getElementById('file-type');
+  const visualUploadSection = document.getElementById('visual-upload-section');
+  const audioUploadSection = document.getElementById('audio-upload-section');
+  const microphoneSection = document.getElementById('microphone-section');
+  const startRecordingButton = document.getElementById('start-recording');
+  const progressBar = document.getElementById('progress-bar');
+  const uploadProgress = document.getElementById('upload-progress');
+  const transcribedTextArea = document.getElementById('transcribed-text');
+
+  // Handle file type selection
+  fileTypeSelect.addEventListener('change', function () {
+      const selectedFileType = fileTypeSelect.value;
+      
+      if (selectedFileType === 'audio') {
+          visualUploadSection.classList.add('hidden');
+          audioUploadSection.classList.remove('hidden');
+          microphoneSection.classList.remove('hidden');
+      } else {
+          visualUploadSection.classList.remove('hidden');
+          audioUploadSection.classList.add('hidden');
+          microphoneSection.classList.add('hidden');
+      }
+  });
+  // document.addEventListener('DOMContentLoaded', function () {
+  //   const transcriptionTextarea = document.getElementById('transcription');
+
+  //   // Debugging: Check if the textarea element is accessible
+  //   console.log(transcriptionTextarea); 
+  // Handle start recording
+  if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = 'en-US'; // You can change this to the desired language
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      startRecordingButton.addEventListener('click', function () {
+          recognition.start();
+          startRecordingButton.textContent = 'Recording...';
+      });
+
+      recognition.onresult = function (event) {
+    const transcript = event.results[0][0].transcript;
+    console.log('Transcript:', transcript);
+    document.getElementById('transcribed-text').value = transcript;
+};
+
+
+      recognition.onerror = function (event) {
+          console.error('Speech recognition error:', event.error);
+          startRecordingButton.textContent = 'Start Recording';
+      };
+
+      recognition.onend = function () {
+          startRecordingButton.textContent = 'Start Recording';
+      };
+  } else {
+      console.log('Speech recognition not supported in this browser.');
+      startRecordingButton.disabled = true;
+  }
+
+  // Optional: Handle upload progress
+  // You can simulate progress for demonstration purposes
+  function simulateProgress() {
+      let width = 0;
+      const interval = setInterval(() => {
+          if (width >= 100) {
+              clearInterval(interval);
+          } else {
+              width += 10;
+              progressBar.style.width = width + '%';
+          }
+      }, 500);
+  }
+
+  // Call simulateProgress() as needed or replace with actual progress logic
+});
+
+  </script>
+
+  <style>
+    /* Custom styles for sticky sidebar */
+    #sidebar {
+      top: 0;
+      height: 100vh;
+      /* Full viewport height */
+      overflow-y: auto;
+      /* Allow scrolling within the sidebar */
+      z-index: 1000;
+      /* Ensure it sits on top */
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(-100%);
+    }
+
+    #sidebar.open {
+      transform: translateX(0);
+    }
+
+    @media (min-width: 1024px) {
+      #sidebar {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes progressAnimation {
+      from {
+        width: 0%;
+      }
+
+      to {
+        width: 100%;
+      }
+    }
+
+    /* Animation for visibility toggle */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .slide-in {
+      animation: slideIn 0.5s ease-in-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+      }
+
+      to {
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-yellow-50 flex">
+
+  <!-- Sidebar -->
+  <nav id="sidebar"
+    class="fixed lg:sticky lg:top-0 lg:left-0 lg:w-64 lg:bg-pink-700 lg:text-white lg:h-full lg:overflow-y-auto bg-pink-700 text-white flex flex-col transition-transform duration-300">
+    <div class="flex items-center justify-between p-4 bg-pink-700 lg:hidden">
+      <span class="text-2xl font-bold">Dashboard</span>
+      <button id="menuButton" class="text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
+    </div>
+    <ul class="flex flex-col gap-4 p-4">
+      <li><a href="#user-profile" class="flex items-center gap-2 p-2 hover:bg-pink-500 rounded"><svg class="w-6 h-6"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M5.121 18.364A9 9 0 1118.364 5.121M12 3v9" />
+          </svg><span>User Profile</span></a></li>
+      <li><a href="#upload-transform-section" class="flex items-center gap-2 p-2 hover:bg-pink-500 rounded"><svg class="w-6 h-6"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11l7-7m0 0l7 7m-7-7v18" />
+          </svg><span>Upload and Transform Section</span></a></li>
+      <li><a href="#translated-content" class="flex items-center gap-2 p-2 hover:bg-pink-500 rounded"><svg
+            class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 5v7m-2-2h4m0 10a7 7 0 11-14 0v-1a7 7 0 0114 0v1z" />
+          </svg><span>Translated Content</span></a></li>
+      <li><a href="#saved-translations" class="flex items-center gap-2 p-2 hover:bg-pink-500 rounded"><svg
+            class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m-6-4h12" />
+          </svg><span>Saved Translations</span></a></li>
+      <li><a href="#feedback" class="flex items-center gap-2 p-2 hover:bg-pink-500 rounded"><svg class="w-6 h-6"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m-6-6h12" />
+          </svg><span>Feedback</span></a></li>
+      <li><a href="#help-support" class="flex items-center gap-2 p-2 hover:bg-pink-500 rounded"><svg class="w-6 h-6"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 10h8M12 14v8m-2-10h4a2 2 0 01-2-2m0-4a2 2 0 012 2m-2 4v2m-2-2v2m4-4h2M6 4v6" />
+          </svg><span>Help Support</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 lg:ml-64 p-4 lg:p-8 max-w-screen-lg mx-auto">
+    <!-- User Profile Section -->
+    <section id="user-profile" class="mb-8">
+      <h1 class="text-3xl font-bold mb-6 text-pink-800">User Profile</h1>
+      <div class="p-6 bg-white rounded-lg shadow-md">
+        <div class="flex flex-col items-center bg-gray-50 p-6 rounded-lg shadow-lg">
+          <img src="assets/download.jpeg" alt="Profile Picture"
+            class="w-40 h-40 rounded-full mb-4 border-4 border-pink-600">
+          <div class="text-center">
+            <h2 id="userName" class="text-3xl font-semibold text-pink-900 mb-2">Loading...</h2>
+            <p id="userEmail" class="text-lg text-gray-700 mb-4">Loading...</p>
+            <!-- <button class="bg-pink-600 text-white py-2 px-6 rounded-lg hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500">Edit Profile</button> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+ 
+
+    <section id="upload-transform-section" class="mb-8 max-w-4xl mx-auto bg-white p-4 rounded-lg shadow-lg">
+      <h1 class="text-3xl font-bold mb-6 text-pink-800">Translated Content</h1>
+      
+      <select id="file-type" class="mb-4 p-2 border border-gray-300 rounded w-full">
+        <option value="visual">Visual</option>
+        <option value="audio">Audio</option>
+      </select>
+  
+      <!-- Visual Upload Section -->
+      <div id="visual-upload-section" class="mb-6">
+        <p class="text-gray-700">Upload your visual file here.</p>
+        <!-- Additional content for visual upload -->
+        <input type="file" id="visual-file" class="mt-2 p-2 border border-gray-300 rounded w-full">
+      </div>
+  
+      <!-- Audio Upload Section -->
+      <div id="audio-upload-section" class="hidden">
+        <!-- <label for="audio-file" class="block text-gray-700 mb-2">Upload Audio File:</label>
+        <input type="file" id="audio-file" class="mb-4 p-2 border border-gray-300 rounded w-full"> -->
+        
+        <!-- Microphone Section -->
+        <div id="microphone-section" class="mt-4">
+          <button id="start-recording" class="bg-pink-500 text-white p-3 rounded hover:bg-pink-600 w-full flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v6m4-3H8m8 0a4 4 0 01-8 0H4m4 0a4 4 0 018 0zM12 10a4 4 0 10-4-4 4 4 0 004 4z"/>
+            </svg>
+            Start Recording
+          </button>
+          <textarea id="transcribed-text" class="w-full mt-4 p-2 border border-gray-300 rounded" rows="6" placeholder="Transcribed text will appear here..." readonly></textarea>
+        </div>
+      </div>
+  
+      <!-- Progress Bar -->
+      <div id="progress-bar-section" class="hidden">
+        <div class="text-xs font-semibold inline-block py-1 px-2 rounded text-teal-600 bg-teal-200 mb-2">
+          Upload Progress
+        </div>
+        <div class="relative pt-1">
+          <div id="progress-bar" class="w-full bg-teal-200 rounded-full h-2">
+            <div class="bg-teal-600 h-2 rounded-full" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+
+
+
+
+    <!-- Translated Content -->
+    <section id="translated-content" class="mb-8">
+      <h1 class="text-3xl font-bold mb-6 text-pink-800">Translated Content</h1>
+      <div class="p-6 bg-white rounded-lg shadow-md">
+        <p class="text-lg text-gray-700">No content available.</p>
+      </div>
+    </section>
+
+    <!-- Saved Translations -->
+    <!-- <section id="saved-translations" class="mb-8">
+      <h1 class="text-3xl font-bold mb-6 text-pink-800">Saved Translations</h1>
+      <div class="p-6 bg-white rounded-lg shadow-md">
+        <p class="text-lg text-gray-700">No saved translations.</p>
+      </div>
+    </section> -->
+
+    <!-- Feedback -->
+    <section id="feedback" class="mb-8">
+      <h1 class="text-3xl font-bold mb-6 text-pink-800">Feedback</h1>
+      <div class="p-6 bg-white rounded-lg shadow-md">
+        <textarea class="w-full h-32 p-2 border border-gray-300 rounded mb-4"
+          placeholder="Leave your feedback here..."></textarea>
+        <button
+          class="bg-pink-600 text-white py-2 px-4 rounded w-full hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500">Submit</button>
+      </div>
+    </section>
+
+    <!-- Help Support -->
+    <section id="help-support" class="mb-8">
+      <h1 class="text-3xl font-bold mb-6 text-pink-800">Help Support</h1>
+      <div class="p-6 bg-white rounded-lg shadow-md">
+        <p class="text-lg text-gray-700">If you need help, contact support at support@example.com</p>
+      </div>
+    </section>
+  </main>
+
+</body>
+<!-- <script type="module" src="Javascript/dashboard.js" defer></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script> -->
+
+</html>
